@@ -3,9 +3,12 @@ package br.com.router;
 public class RouterDefault implements Router {
 
 	@Override
-	public String router() {
+	public void router() {
 		// TODO Auto-generated method stub
-		return null;
+		
+		String CONSULTA_CPF = "/api/cpf/";
+		
+		return;
 	}
 	
 
