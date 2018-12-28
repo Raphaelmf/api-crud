@@ -15,4 +15,4 @@ include 'api'
 include 'services:webservice'
 */
 
-rootProject.name = 'api-cadastro'
+rootProject.name = 'api-chatbots'
