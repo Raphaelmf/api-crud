@@ -16,7 +16,8 @@ public class BotMessageDefault implements BotMessage {
 	}
 	@Override
 	public UUID getBot(UUID uuid) {
-		
+		System.out.println("chegou no core");
+		repository.getBotById(uuid);
 		return uuid.randomUUID();
 		// TODO Auto-generated method stub
 		

@@ -1,34 +1,56 @@
 package br.com.infra;
 
 import com.datastax.driver.core.Cluster;
-import com.datastax.driver.core.Cluster.Builder;
-import com.datastax.driver.core.Host;
 import com.datastax.driver.core.HostDistance;
-import com.datastax.driver.core.Metadata;
 import com.datastax.driver.core.PoolingOptions;
 import com.datastax.driver.core.Session;
 import com.datastax.driver.core.policies.DCAwareRoundRobinPolicy;
 import com.datastax.driver.core.policies.TokenAwarePolicy;
 import com.google.common.util.concurrent.MoreExecutors;
+import com.google.inject.Singleton;
 
+@Singleton
 public class DatabaseConfigProviderDefault implements DatabaseConfigProvider {
 
 	private Cluster cluster;
 	private Session session;
 
 	@Override
-	public void connect() {
+	public void InicializerCluster() {
+		System.out.println("Entrou no connect");
+		try {
+			System.out.println("Entrou no try");
+			cluster = Cluster.builder().addContactPoints("localhost")
+					.withPort(9042).build();
+					/*
+					.withPoolingOptions(new PoolingOptions().setConnectionsPerHost(HostDistance.LOCAL, 1, 30)
+							.setInitializationExecutor(MoreExecutors.directExecutor()))
+					.withLoadBalancingPolicy(new TokenAwarePolicy(DCAwareRoundRobinPolicy.builder().build())).build();
+*/
+			System.out.println(cluster);
+			connect();
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("Não conectou " + e);
+		}
 
-		cluster = Cluster.builder().withCredentials("cassandra", "cassandra")
-								    .addContactPoints("localhost").withPort(9042)
-								    .withPoolingOptions(new PoolingOptions().setConnectionsPerHost(HostDistance.LOCAL, 1, 30)
-								    										.setInitializationExecutor(MoreExecutors.directExecutor()))
-								    .withLoadBalancingPolicy(new TokenAwarePolicy(DCAwareRoundRobinPolicy.builder().build())).build();
-		session = cluster.connect();
+		System.out.println("Cassandra Conectado");
+	}
+	public void connect() {
+		this.session = cluster.connect();
 	}
 
+	@Override
 	public Session getSession() {
-		return this.session;
+		System.out.println("entro no getsession()");
+		try {
+			InicializerCluster();
+		}catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("Não conectou entro da session " + e);
+		}
+		
+		return session;
 	}
 
 	public void close() {

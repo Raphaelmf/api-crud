@@ -20,6 +20,7 @@ public class BotsModule extends AbstractModule {
 		bind(Controller.class).to(ControllerDefault.class);
 		bind(DatabaseConfigProvider.class).to(DatabaseConfigProviderDefault.class);
 		bind(BotMessageRepository.class).to(BotMessageRepositoryDefault.class);
+		bind(DatabaseConfigProvider.class).to(DatabaseConfigProviderDefault.class);
 
 	}
 

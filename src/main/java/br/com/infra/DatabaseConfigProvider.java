@@ -1,6 +1,8 @@
 package br.com.infra;
 
-public interface DatabaseConfigProvider {
-	void connect();
+import com.datastax.driver.core.Session;
 
+public interface DatabaseConfigProvider {
+	void InicializerCluster();
+	Session getSession();
 }
