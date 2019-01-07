@@ -7,20 +7,19 @@ import com.google.inject.Inject;
 import br.com.infra.BotMessageRepository;
 
 public class BotMessageDefault implements BotMessage {
-	
+
 	private final BotMessageRepository repository;
 
 	@Inject
-	BotMessageDefault(BotMessageRepository repository){
-		this.repository = repository;	
+	BotMessageDefault(BotMessageRepository repository) {
+		this.repository = repository;
 	}
+
 	@Override
-	public UUID getBot(UUID uuid) {
+	public String getBot(UUID uuid) {
 		System.out.println("chegou no core");
-		repository.getBotById(uuid);
-		return uuid.randomUUID();
-		// TODO Auto-generated method stub
-		
+		return repository.getBotById(uuid);
+
 	}
 
 }

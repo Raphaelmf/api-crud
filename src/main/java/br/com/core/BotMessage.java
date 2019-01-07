@@ -4,5 +4,5 @@ import java.util.UUID;
 
 public interface  BotMessage {
 
-	 UUID getBot(UUID uuid);
+	 Object getBot(UUID uuid);
 }
